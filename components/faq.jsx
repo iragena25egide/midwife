@@ -48,32 +48,42 @@ export default function FAQ() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-[#F5E8DF] p-6">
-      <div className="flex justify-between items-center pb-4">
-        <h2 className="text-xl font-bold">Frequently Asked Questions</h2>
-        <button onClick={toggleAll} className="text-lg font-semibold text-gray-700">
+    <div className="max-w-1xl mx-auto bg-[#F5E8DF] p-6 md:p-10 rounded-xl shadow-lg">
+      
+      {/* Header with Expand/Collapse Button */}
+      <div className="flex justify-between items-center pb-4 border-b border-gray-400">
+        <h2 className="text-3xl font-serif text-[#8B5E56] font-semibold">Frequently Asked Questions</h2>
+        <button
+          onClick={toggleAll}
+          className="text-md font-semibold text-white bg-[#8B5E56] px-4 py-2 rounded-lg hover:bg-[#75493E] transition"
+        >
           {openIndexes.length === faqs.length ? "Collapse All" : "Expand All"}
         </button>
       </div>
 
-      {faqs.map((faq, index) => (
-        <div key={index} className="border-b border-gray-300">
-          <button
-            className="w-full flex justify-between items-center py-4 text-left text-lg font-semibold"
-            onClick={() => toggleFAQ(index)}
-          >
-            <span>{faq.question}</span>
-            {openIndexes.includes(index) ? (
-              <FaMinus className="text-gray-700" />
-            ) : (
-              <FaPlus className="text-gray-700" />
+      {/* FAQ List */}
+      <div className="mt-6 space-y-4">
+        {faqs.map((faq, index) => (
+          <div key={index} className="border border-gray-300 rounded-lg bg-white shadow-sm">
+            <button
+              className="w-full flex justify-between items-center p-5 text-left text-[#8B5E56] font-semibold text-lg bg-[#F5E8DF] hover:bg-[#e4d4c5] transition duration-300"
+              onClick={() => toggleFAQ(index)}
+            >
+              <span>{faq.question}</span>
+              {openIndexes.includes(index) ? (
+                <FaMinus className="text-[#8B5E56]" />
+              ) : (
+                <FaPlus className="text-[#8B5E56]" />
+              )}
+            </button>
+            {openIndexes.includes(index) && (
+              <div className="p-5 text-gray-700 text-md leading-relaxed">
+                {faq.answer}
+              </div>
             )}
-          </button>
-          {openIndexes.includes(index) && (
-            <div className="p-4 text-gray-700">{faq.answer}</div>
-          )}
-        </div>
-      ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
